@@ -187,7 +187,7 @@ describe('groupFeature', function () {
   });
 
   describe('findOne', function () {
-    it('get /page/:id should return one page', function(done){
+    it('get /page/:id should return one group', function(done){
       request(http)
       .get('/group/' + salvedGroup.id)
       .set('Accept', 'application/json')

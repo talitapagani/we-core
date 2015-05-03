@@ -54,10 +54,13 @@ describe('pageFeature', function () {
       .get('/page')
       .set('Accept', 'application/json')
       .end(function (err, res) {
+
+        console.log('res.body',res.body);
         assert.equal(200, res.status);
-        assert(res.body.page);
-        assert( _.isArray(res.body.page) , 'page not is array');
+        assert(res.body.data);
+        assert( _.isArray(res.body.data) , 'page not is array');
         assert(res.body.meta);
+        assert(res.body.links);
 
         done();
       });
@@ -87,17 +90,23 @@ describe('pageFeature', function () {
   });
 
   describe('findOne', function () {
-    it('get /page/:id should return one page', function(done){
+    it('get /page/:id should return one page', function(done) {
+
       request(http)
       .get('/page/' + salvedPage.id)
       .set('Accept', 'application/json')
       .end(function (err, res) {
         if (err) return done(err);
+
+        console.log('res.body>',res.body);
+
         assert.equal(200, res.status);
-        assert(res.body.page);
-        assert(res.body.page[0].title, salvedPage.title);
-        assert(res.body.page[0].about, salvedPage.about);
-        assert(res.body.page[0].body, salvedPage.body);
+        assert(res.body.data);
+        assert(res.body.data.title, salvedPage.title);
+        assert(res.body.data.about, salvedPage.about);
+        assert(res.body.data.body, salvedPage.body);
+        assert(res.body.links);
+
         done();
       });
     });
